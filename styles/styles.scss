@@ -1,0 +1,306 @@
+$white: #fff;
+$blue_grey_900: #0f172a;
+$blue_cool_400: #64748b;
+$blue_cool_500: #7c879c;
+$dark_gray: #a9a9a9;
+$bg_color: #f5f3f4;
+$main_color: #ffc907;
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background: $white;
+	font-family: "Cairo", sans-serif;
+}
+
+::selection {
+	background-color: $main_color;
+	color: $blue_grey_900;
+}
+
+// Placeholders
+%card {
+	padding: 40px;
+	background-color: $bg_color;
+	color: $blue_grey_900;
+	border-radius: 15px;
+}
+
+// Mixin for grid span row & column
+@mixin grid_span($span_row, $span_col) {
+	grid-row: $span_row;
+	grid-column: $span_col;
+}
+
+// CV Container
+.cv_container {
+	width: 80%;
+	padding: 50px;
+	display: grid;
+	grid-template: auto / repeat(12, 1fr);
+	grid-gap: 30px;
+	margin: 0 auto;
+	@media (max-width: 900px) {
+		width: 100%;
+		padding: 30px;
+		grid-gap: 30px 0;
+	}
+	h1 {
+		color: $blue_grey_900;
+		font-size: 24px;
+		font-weight: 400;
+		margin-bottom: -5px;
+		span {
+			font-weight: 900;
+		}
+	}
+	h2 {
+		color: $blue_cool_400;
+		font-size: 14px;
+		font-weight: 400;
+		margin-bottom: 20px;
+	}
+	h2.tittle {
+		font-size: 18px;
+		font-weight: 700;
+	}
+	p {
+		color: $blue_cool_500;
+		line-height: 1.5;
+		margin-bottom: 10px;
+	}
+	ul {
+		list-style: none;
+		li {
+			color: $blue_cool_500;
+		}
+	}
+
+	// Profile Section
+	.profile {
+		@include grid_span(span 1, span 12);
+		@extend %card;
+		display: flex;
+		.profile_img {
+			width: 75px;
+			height: 100px;
+			padding: 5px;
+			margin: 0 80px 0 30px;
+			border-radius: 50%;
+			border: 3px solid $main_color;
+			img {
+				width: 134px;
+				height: 134px;
+				background-size: cover;
+				border-radius: 50%;
+			}
+		}
+		.profile_info {
+			padding-right: 200px;
+		}
+		@media (max-width: 900px) {
+			display: block;
+			text-align: center;
+			.profile_img {
+				margin: auto;
+				margin-bottom: 30px;
+			}
+			.profile_info {
+				padding-right: 0px;
+			}
+		}
+	}
+
+	// Contact & Education Sections
+	.cont_edu_info {
+		@include grid_span(span 2, span 4);
+		@extend %card;
+		& > div:not(:last-child) {
+			margin-bottom: 30px;
+		}
+		.contact {
+			.contact_list {
+				li {
+					span {
+						margin-left: 15px;
+					}
+					svg {
+						width: 30px;
+						height: 30px;
+						padding-top: 8px;
+						color: $main_color;
+					}
+					&:not(:last-child) {
+						margin-bottom: 5px;
+					}
+				}
+			}
+		}
+		.education {
+			& > div:last-child {
+				margin-top: 20px;
+			}
+			.education_list {
+				& > p:not(:last-child) {
+					margin-bottom: 5px;
+				}
+				.education_year {
+					font-weight: 600;
+				}
+				.education_degree {
+					font-weight: 400;
+				}
+				.education_college {
+					font-weight: 400;
+				}
+			}
+		}
+		@media (max-width: 900px) {
+			@include grid_span(span 1, span 12);
+			display: flex;
+			justify-content: space-between;
+		}
+		@media (max-width: 678px) {
+			@include grid_span(span 1, span 12);
+			display: block;
+		}
+	}
+
+	// Skills Sections
+	.skills {
+		@include grid_span(span 1, span 8);
+		@extend %card;
+		h2 {
+			margin-bottom: 20px;
+		}
+		.progress_bar {
+			li {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				&:not(:last-child) {
+					margin-bottom: 5px;
+				}
+				span {
+					width: 80%;
+					height: 10px;
+					background: $dark_gray;
+					border-radius: 10px;
+					overflow: hidden;
+					position: relative;
+					&::after {
+						position: absolute;
+						content: "";
+						height: 10px;
+						background-color: $main_color;
+						border-radius: 10px;
+					}
+				}
+				&:first-child span::after {
+					width: 80%;
+				}
+				&:nth-child(2) span::after {
+					width: 75%;
+				}
+				&:nth-child(3) span::after {
+					width: 85%;
+				}
+				&:last-child span::after {
+					width: 65%;
+				}
+			}
+		}
+		@media (max-width: 900px) {
+			@include grid_span(span 1, span 12);
+			.progress_bar {
+				li span {
+					width: 60%;
+				}
+			}
+		}
+	}
+
+	// Experience Sections
+	.experience {
+		@include grid_span(span 2, span 8);
+		@extend %card;
+		.experience_content {
+			padding-left: 40px;
+			position: relative;
+			&::before {
+				position: absolute;
+				content: "";
+				left: 0;
+				width: 4px;
+				height: 100%;
+				background: $dark_gray;
+			}
+			.experience_list {
+				&:not(:last-child) {
+					margin-bottom: 30px;
+				}
+				.experience_job {
+					color: $main_color;
+					font-weight: 700;
+					margin-bottom: 0;
+					&::before {
+						position: absolute;
+						content: "";
+						left: -3px;
+						width: 10px;
+						height: 10px;
+						border-radius: 10px;
+						background: $main_color;
+						margin-top: 5px;
+					}
+				}
+				.experience_location {
+					margin-bottom: 0;
+				}
+			}
+		}
+		@media (max-width: 900px) {
+			@include grid_span(span 2, span 12);
+		}
+	}
+
+	// Interest Sections
+	.interest {
+		@include grid_span(span 1, span 4);
+		@extend %card;
+		background-color: $main_color;
+		h2 {
+			color: $blue_grey_900;
+		}
+		.interest_list {
+			display: flex;
+			justify-content: space-between;
+			text-align: center;
+			li {
+				color: $blue_grey_900;
+				span {
+					display: block;
+				}
+				svg {
+					width: 40px;
+					height: 40px;
+					padding-top: 8px;
+				}
+				&:not(:last-child) {
+					margin-bottom: 5px;
+				}
+			}
+		}
+		@media (max-width: 900px) {
+			@include grid_span(span 1, span 12);
+		}
+	}
+}
+
+
+		
+	
